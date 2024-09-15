@@ -78,4 +78,4 @@ jobs:
           git config --global user.name "actions.glados"     #"${{ github.actor }}"
           git config --global user.email "actions@glados.fr"
           git commit -a -m "Commit from actions"
-          git push --set-upstream dev                        #"${{ github.repository }}"
+          git push --set-upstream main                        #"${{ github.repository }}"
