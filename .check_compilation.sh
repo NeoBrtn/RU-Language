@@ -1,3 +1,4 @@
 #!/bin/bash
 
-exit 0
+ghc hask.hs -o glados
+
