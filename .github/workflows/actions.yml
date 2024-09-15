@@ -1,0 +1,81 @@
+name: chocolatine
+run-name: pain-au-chocolat #
+on:
+  push: 
+    branches-ignore:
+      - 'ga-ignore-*'
+env:
+  MIRROR_URL: git@github.com:EpitechPromo2027/B-DOP-200-NCY-2-1-chocolatine-julian.bottiglione.git
+  EXECUTABLE: "a.out my_hunter" 
+
+defaults:
+  run:
+    shell: bash
+
+
+jobs:
+  check_coding_style:
+    runs-on: ubuntu-latest
+    container: ghcr.io/epitech/coding-style-checker:latest
+  
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: my-coding-style-checker
+        run: |
+          check.sh $(pwd) $(pwd)
+          file="coding-style-reports.log"
+          if [  $(wc -c $file | awk '{print $1}') == 0 ]
+          then
+            exit 0
+          fi
+          while read -r line
+          do
+            echo "::error::$line"
+          done < "$file"
+          exit 84
+
+  check_program_compilation:
+    needs: check_coding_style
+    runs-on: ubuntu-latest
+    container: 
+      image: epitechcontent/epitest-docker
+
+    steps:
+      - name: Checkout
+        uses: "actions/checkout@v3"
+        with:
+          fetch-depth: 0
+      - run: ./.check_compilation.sh
+        timeout-minutes: 5
+  
+  run_tests:
+    needs: check_program_compilation
+    runs-on: ubuntu-latest
+    container:
+      image:  epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - run: ./run_tests.sh
+        timeout-minutes: 2
+
+  push_to_mirror:
+    needs: run_tests
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: push to dev branch
+      if: github.event_name == 'push'
+      run: |
+        git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+        git config --global user.email "username@users.noreply.github.com"
+        git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
+        git push
