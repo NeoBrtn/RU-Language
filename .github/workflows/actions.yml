@@ -74,10 +74,8 @@ jobs:
         - name: push to main
           run: |
             git checkout -b ${{ env.TARGET_BRANCH }}
-            git merge dev
-            git status
+            git merge dev --no-commit --no-ff
             git reset HEAD .github/workflows/
-            git status
             git push --force origin ${{ env.TARGET_BRANCH }}
             
           
