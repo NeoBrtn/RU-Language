@@ -1,11 +1,15 @@
 name: GladOS actions
 on:
   push: 
-    branches-ignore:
-      - 'ga-ignore-*'
+    branches:
+      - dev
+
 env:
-  MIRROR_URL: git@github.com:EpitechPromo2027/B-DOP-200-NCY-2-1-chocolatine-julian.bottiglione.git
-  EXECUTABLE: "a.out my_hunter" 
+  REPO: git@github.com:Julian52575/Private_Glados.git
+  BRANCH: main # The branch name where you want to push the assets
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+  MESSAGE: "({sha}) {msg}" # The commit message
+  FOLDER: . # The directory where your assets are generated
 
 defaults:
   run:
@@ -68,14 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: push to dev branch
-        if: github.event_name == 'push'
-        run: |
-          git config --global user.name "actions.glados"     #"${{ github.actor }}"
-          git config --global user.email "actions@glados.fr"
-          git commit -a -m "Commit from actions"
-          git push --set-upstream main                        #"${{ github.repository }}"
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        - uses: s0/git-publish-subdir-action@develop
