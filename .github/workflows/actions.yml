@@ -75,8 +75,9 @@ jobs:
         # The "cleanup old checkout" step is needed because of this bug: https://github.com/actions/checkout/issues/1014
         - name: cleanup old checkout  
           run: chmod +w -R ${GITHUB_WORKSPACE}; rm -rf ${GITHUB_WORKSPACE}/*;
-        - name: push to main branch
-        - uses: actions/checkout@v4
+        - name: checkout
+          uses: actions/checkout@v4
           with:
             fetch-depth: 0
-        - uses: s0/git-publish-subdir-action@develop
+        - name: push to main branch
+          uses: s0/git-publish-subdir-action@develop
