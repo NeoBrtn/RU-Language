@@ -79,7 +79,7 @@ jobs:
           run: |
             git config user.name "Julian52575"
             git config user.email ${{ secrets.OWNER_EMAIL }}
-            cat ${{ secrets.SSH_KEY }} > ssh.ssh
+            echo ${{ secrets.SSH_KEY }} >> ssh.ssh
             eval `ssh-agent -s`
             ssh-add ssh.ssh
             rm ssh.shh
