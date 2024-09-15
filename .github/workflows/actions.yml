@@ -75,7 +75,7 @@ jobs:
           run: |
             git checkout -b ${{ env.TARGET_BRANCH }}
             git merge dev
-            git reset -r .github/workflows/
+            git reset .github/workflows/
             git push --force origin ${{ env.TARGET_BRANCH }}
             
           
