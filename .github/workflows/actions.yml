@@ -7,6 +7,7 @@ on:
 env:
   REPO: git@github.com:Julian52575/Private_Glados.git
   BRANCH: main # The branch name where you want to push the assets
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
   SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
   MESSAGE: "({sha}) {msg}" # The commit message
   FOLDER: . # The directory where your assets are generated
