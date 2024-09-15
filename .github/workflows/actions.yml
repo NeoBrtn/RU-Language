@@ -9,7 +9,7 @@ env:
   BRANCH: main # The branch name where you want to push the assets
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
   MESSAGE: "Build: ({sha}) {msg}" # The commit message
-  #FOLDER: build # The directory where your assets are generated
+  FOLDER: . # The directory where your assets are generated
 
 defaults:
   run:
