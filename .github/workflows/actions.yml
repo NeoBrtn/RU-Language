@@ -5,7 +5,7 @@ on:
       - dev
 
 env:
-  REPO: self
+  REPO: git@github.com:Julian52575/Private_Glados.git
   BRANCH: main # The branch name where you want to push the assets
   SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
   MESSAGE: "({sha}) {msg}" # The commit message
