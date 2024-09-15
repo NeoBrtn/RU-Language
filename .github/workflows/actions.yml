@@ -19,7 +19,9 @@ defaults:
 jobs:
   check_coding_style:
     runs-on: ubuntu-latest
-    container: ghcr.io/epitech/coding-style-checker:latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+      options: --user root
   
     steps:
       - uses: actions/checkout@v4
