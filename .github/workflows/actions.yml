@@ -21,7 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/epitech/coding-style-checker:latest
-      options: --user root
   
     steps:
       - uses: actions/checkout@v4
@@ -75,11 +74,13 @@ jobs:
     if: ${{ github.event_name == 'push' }}
     steps:
         # The "cleanup old checkout" step is needed because of this bug: https://github.com/actions/checkout/issues/1014
-        - name: cleanup old checkout  
-          run: chmod +w -R ${GITHUB_WORKSPACE} | true; rm -rf ${GITHUB_WORKSPACE}/* | true;
-        - name: checkout
-          uses: actions/checkout@v4
-          with:
-            fetch-depth: 0
-        - name: push to main branch
-          uses: s0/git-publish-subdir-action@develop
+        - uses: actions/checkout@v4
+        - name: push to main
+          run: |
+            git checkout -b another_branch
+            git merge dev
+            git push --force origin another_branch
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+            
+          
