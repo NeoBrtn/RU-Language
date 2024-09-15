@@ -76,14 +76,14 @@ jobs:
     steps:
         # The "cleanup old checkout" step is needed because of this bug: https://github.com/actions/checkout/issues/1014
         - uses: actions/checkout@v4
-        - name: set ssh-key
-          run: |
-            git config user.name "Julian52575"
-            git config user.email ${{ secrets.OWNER_EMAIL }}
-            echo "${{ secrets.SSH_KEY }}" >> ssh.ssh
-            chmod 600 ssh.ssh
-            eval `ssh-agent -s`
-            ssh-add ssh.ssh
+        #- name: set ssh-key
+         # run: |
+           # git config user.name "Julian52575"
+          #  git config user.email ${{ secrets.OWNER_EMAIL }}
+            #echo "${{ secrets.SSH_KEY }}" >> ssh.ssh
+            #chmod 600 ssh.ssh
+            #eval `ssh-agent -s`
+            #ssh-add ssh.ssh
         
         - name: push to main
           run: |
