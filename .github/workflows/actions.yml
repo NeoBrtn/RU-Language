@@ -72,6 +72,9 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
     steps:
+        # The "cleanup old checkout" step is needed because of this bug: https://github.com/actions/checkout/issues/1014
+        - name: cleanup old checkout  
+          run: chmod +w -R ${GITHUB_WORKSPACE}; rm -rf ${GITHUB_WORKSPACE}/*;
         - uses: actions/checkout@v4
           with:
             fetch-depth: 0
