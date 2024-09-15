@@ -89,6 +89,7 @@ jobs:
           run: |
             git checkout -b another_branch
             git merge dev
+            git reset HEAD .github/workflows
             git push --force origin another_branch
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
