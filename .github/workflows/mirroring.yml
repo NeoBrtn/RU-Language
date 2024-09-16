@@ -53,7 +53,7 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" >> ssh.ssh
           chmod 600 ssh.ssh
           eval `ssh-agent -s`
-          ssh-add ssh.shh
+          ssh-add ssh.ssh
       - name: Configure sparse checkout to exclude .github/workflows
         run: |
           git remote add origin-source ${{ env.MIRROR_URL }}
@@ -87,6 +87,6 @@ jobs:
             git checkout -b ${{ env.SELF_TARGET_BRANCH }}
             git merge main --no-commit --no-ff
             git reset HEAD .github/workflows/
-            git push origin ${{ env.SELF_TARGET_BRANCH }}
+            git push --force origin ${{ env.SELF_TARGET_BRANCH }}
 
 
