@@ -5,7 +5,7 @@ on:
       - main
 
 env:
-  MIRROR_URL: https://${{ secrets.MY_TOKEN }}@github.com/EpitechPromo2027/B-FUN-500-NCY-5-1-glados-julian.bottiglione.git
+  MIRROR_URL: git@github.com/EpitechPromo2027/B-FUN-500-NCY-5-1-glados-julian.bottiglione.git
   SELF_TARGET_BRANCH: release
 
 defaults:
@@ -49,11 +49,14 @@ jobs:
         with:
           fetch-depth: 0  # Ensure full history is fetched
       - name: add ssh-key
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          echo "${{ secrets.SSH_KEY }}" >> ssh.ssh
-          chmod 600 ssh.ssh
-          eval `ssh-agent -s`
-          ssh-add ssh.ssh
+            mkdir -p ~/.ssh
+            echo "${{ secrets.SSH_KEY }}" > ~/.ssh/github_actions
+            chmod 600 ~/.ssh/github_actions
+            ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
+            ssh-add ~/.ssh/github_actions
       - name: Configure sparse checkout to exclude .github/workflows
         run: |
           git remote add origin-source ${{ env.MIRROR_URL }}
