@@ -3,4 +3,4 @@
 glados
 coding-style-reports.log
 
-.github/workflows/
+.github/workflows/*
