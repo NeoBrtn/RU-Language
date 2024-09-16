@@ -79,10 +79,20 @@ jobs:
             git reset HEAD .github/workflows/
             git push origin ${{ env.SELF_TARGET_BRANCH }}
 
-        - uses: pixta-dev/repository-mirroring-action@v1
-        - name: mirror to epitech repo
-          with:
-            target_repo_url:
-               ${{ env.MIRROR_URL }}
-            ssh_private_key:
-               ${{ secrets.SSH_KEY }}
+  push_to_relese_branch:
+    runs-on: ubuntu-latest
+    container:
+      image:  epitechcontent/epitest-docker
+    needs: 
+      -  run_tests
+      -  check_program_compilation
+      -  check_coding_style
+    steps:
+      - uses: pixta-dev/repository-mirroring-action@v1
+      - name: mirror to epitech repo
+        with:
+          target_repo_url:
+            ${{ env.MIRROR_URL }}
+          ssh_private_key:
+            ${{ secrets.SSH_KEY }}
+
