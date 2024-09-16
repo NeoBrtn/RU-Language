@@ -2,11 +2,11 @@ name: GladOS actions
 on:
   push: 
     branches:
-      - dev
+      - main
 
 env:
-  REPO: git@github.com:Julian52575/Private_Glados.git
-  TARGET_BRANCH: release
+  MIRROR_URL: git@github.com:EpitechPromo2027/B-FUN-500-NCY-5-1-glados-julian.bottiglione.git
+  SELF_TARGET_BRANCH: release
 
 defaults:
   run:
@@ -71,11 +71,17 @@ jobs:
     if: ${{ github.event_name == 'push' }}
     steps:
         - uses: actions/checkout@v4
-        - name: push to main
+        - name: push to release
           run: |
-            git checkout -b ${{ env.TARGET_BRANCH }}
+            git checkout -b ${{ env.SELF_TARGET_BRANCH }}
             git merge dev --no-commit --no-ff
             git reset HEAD .github/workflows/
-            git push --force origin ${{ env.TARGET_BRANCH }}
-            
-          
+            git push origin ${{ env.SELF_TARGET_BRANCH }}
+
+        - uses: pixta-dev/repository-mirroring-action@v1
+        - name: mirror to epitech repo
+          with:
+            target_repo_url:
+               ${{ env.MIRROR_URL }}
+            ssh_private_key:
+               ${{ secrets.SSH_KEY }}
