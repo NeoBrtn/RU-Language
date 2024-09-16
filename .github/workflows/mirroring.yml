@@ -65,6 +65,7 @@ jobs:
     
             git remote add origin-source ${{ github.repositoryUrl }}
             git checkout release
+            ls
             git push --force --set-upstream origin-destination release
 
           
