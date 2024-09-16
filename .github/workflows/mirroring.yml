@@ -5,7 +5,7 @@ on:
       - main
 
 env:
-  MIRROR_URL: git@github.com:EpitechPromo2027/B-FUN-500-NCY-5-1-glados-julian.bottiglione.git
+  MIRROR_URL: https://github.com/EpitechPromo2027/B-FUN-500-NCY-5-1-glados-julian.bottiglione.git
   SELF_TARGET_BRANCH: release
 
 defaults:
