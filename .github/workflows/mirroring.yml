@@ -65,6 +65,8 @@ jobs:
             git remote add origin-source ${{ github.repositoryUrl }}
             git checkout release
             git rm ${{ env.ACTION_FILE }}
+            
+            git config --global user.name "${{ github.actor }}"
             git commit --amend
             git push --force --set-upstream origin-destination release
 
