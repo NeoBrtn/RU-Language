@@ -64,12 +64,23 @@ jobs:
 
   mirror:
     runs-on: ubuntu-latest
+    needs:
+      -  run_tests
+      -  check_program_compilation
 
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Ensure full history is fetched
+
+
+      - name: add ssh-key
+        run: |
+          echo "${{ secrets.SSH_KEY }}" >> ssh.ssh
+          chmod 600 ssh.ssh
+          eval `ssh-agent -s`
+          ssh-add ssh.shh
 
       - name: Configure sparse checkout to exclude .github/workflows
         run: |
@@ -97,7 +108,6 @@ jobs:
     needs:
       -  run_tests
       -  check_program_compilation
-      -  check_coding_style
     if: ${{ github.event_name == 'push' }}
     steps:
         - uses: actions/checkout@v4
