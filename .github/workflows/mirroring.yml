@@ -60,7 +60,7 @@ jobs:
 
             git remote add origin-source ${{ github.repositoryUrl }}
             git sparse-checkout init --cone
-            git sparse-checkout set "!.github/workflows"
+            git sparse-checkout set "!.github/workflows" --no-cone
             ls -al .github/
 
             git remote add origin-destination ${{ env.MIRROR_URL }}
