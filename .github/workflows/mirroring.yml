@@ -62,9 +62,10 @@ jobs:
             git sparse-checkout init --cone
             git sparse-checkout set "!.github/workflows" --no-cone
             tree || true
-
+            ls || true
             git remote add origin-destination ${{ env.MIRROR_URL }}
-            git push --force origin-destination release
+            git checkout release
+            git push --force --set-upstream origin-destination release
 
           
       #git rm -rf --cached .github/workflows/mirroring.yml
