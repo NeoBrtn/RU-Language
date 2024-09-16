@@ -74,6 +74,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: remove actions from mirroring
+        run:
+          rm .github/workflows/*
+
       - uses: pixta-dev/repository-mirroring-action@v1
         with:
           target_repo_url:
@@ -94,7 +98,7 @@ jobs:
           run: |
             rm .github/workflows/*
             git checkout -b ${{ env.SELF_TARGET_BRANCH }}
-            git merge dev --no-commit --no-ff
+            git merge main --no-commit --no-ff
             git reset HEAD .github/workflows/
             git push origin ${{ env.SELF_TARGET_BRANCH }}
 
