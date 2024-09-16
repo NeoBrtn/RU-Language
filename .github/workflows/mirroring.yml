@@ -61,12 +61,12 @@ jobs:
             git fetch origin-source
             git checkout -b release
             git remote add origin-destination ${{ env.MIRROR_URL }}
-            git rm -rf .github/workflows/mirroring.yml
-            git config --global user.email "julian.bottiglione@epitech.eu"
-            git config --global user.name "Julian52575"
-            git commit -m "NO MIRRORING IN MIRRORED REPO."
             git push --force origin-destination release
 
+          #git rm -rf .github/workflows/mirroring.yml
+          #git config --global user.email "julian.bottiglione@epitech.eu"
+          #git config --global user.name "Julian52575"
+          #git commit -m "NO MIRRORING IN MIRRORED REPO."
   push_to_relese_branch:
     runs-on: ubuntu-latest
     needs:
