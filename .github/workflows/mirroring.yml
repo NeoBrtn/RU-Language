@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Ensure full history is fetched
-      - name: add ssh-key
+      - name: Ssh -> Sparse Checkout -> Push
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
@@ -57,24 +57,14 @@ jobs:
             chmod 600 ~/.ssh/github_actions
             ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
             ssh-add ~/.ssh/github_actions
-      - name: Configure sparse checkout to exclude .github/workflows
-        run: |
-          git remote add origin-source ${{ env.MIRROR_URL }}
-          git fetch origin-source
-          
-          # Enable sparse-checkout
-          git config core.sparseCheckout true
-          
-          # Specify files to include (use ! to exclude)
-          echo '/*' > .git/info/sparse-checkout
-          echo '!/.github/workflows' >> .git/info/sparse-checkout
-          
-          # Perform the checkout
-          git checkout main
-      - name: Push to the target repository
-        run: |
-          git remote add origin-destination ${{ env.MIRROR_URL }}
-          git push origin-destination main
+            git remote add origin-source ${{ env.MIRROR_URL }} 
+            git fetch origin-source
+            git config core.sparseCheckout true
+            echo '/*' > .git/info/sparse-checkout
+            echo '!/.github/workflows' >> .git/info/sparse-checkout
+            git checkout main
+            git remote add origin-destination ${{ env.MIRROR_URL }}
+            git push origin-destination main
 
   push_to_relese_branch:
     runs-on: ubuntu-latest
