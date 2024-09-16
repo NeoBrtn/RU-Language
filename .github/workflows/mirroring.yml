@@ -61,11 +61,12 @@ jobs:
             git remote add origin-destination ${{ env.MIRROR_URL }}
   
             git sparse-checkout init --cone
-            git sparse-checkout set "!.github/workflows" --no-cone
+            git sparse-checkout set "!.github/workflows/mirroring.yml" --no-cone
     
             git remote add origin-source ${{ github.repositoryUrl }}
             git checkout release
-            ls
+            git reset HEAD ".github/workflows/mirroring.yml"
+            git commit -c ORIG_HEAD
             git push --force --set-upstream origin-destination release
 
           
