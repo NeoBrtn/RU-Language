@@ -61,7 +61,7 @@ jobs:
             git fetch origin-source
             git config core.sparseCheckout true
             echo '/*' > .git/info/sparse-checkout
-            echo '!/.github/workflows' >> .git/info/sparse-checkout
+            echo '!/.github/workflows/*' >> .git/info/sparse-checkout
             git checkout main
             git remote add origin-destination ${{ env.MIRROR_URL }}
             git push origin-destination main
