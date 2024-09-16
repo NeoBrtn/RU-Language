@@ -5,8 +5,10 @@ on:
       - main
 
 env:
+  ACTION_FILE: .github/workflows/mirroring.yml
   MIRROR_URL: git@github.com:EpitechPromo2027/B-FUN-500-NCY-5-1-glados-julian.bottiglione.git
   SELF_TARGET_BRANCH: release
+  
 
 defaults:
   run:
@@ -59,13 +61,10 @@ jobs:
             ssh-add ~/.ssh/github_actions
 
             git remote add origin-destination ${{ env.MIRROR_URL }}
-  
-            git sparse-checkout init --cone
-            git sparse-checkout set "!.github/workflows/mirroring.yml" --no-cone
     
             git remote add origin-source ${{ github.repositoryUrl }}
             git checkout release
-            git rm ".github/workflows/mirroring.yml"
+            git rm ${{ env.ACTION_FILE }}
             git commit --amend
             git push --force --set-upstream origin-destination release
 
