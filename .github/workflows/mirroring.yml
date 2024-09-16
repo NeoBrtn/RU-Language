@@ -58,12 +58,12 @@ jobs:
             ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
             ssh-add ~/.ssh/github_actions
 
-            git remote add origin-source ${{ github.repositoryUrl }}
+            git remote add origin-destination ${{ env.MIRROR_URL }}
+  
             git sparse-checkout init --cone
             git sparse-checkout set "!.github/workflows" --no-cone
-            tree || true
-            ls || true
-            git remote add origin-destination ${{ env.MIRROR_URL }}
+    
+            git remote add origin-source ${{ github.repositoryUrl }}
             git checkout release
             git push --force --set-upstream origin-destination release
 
