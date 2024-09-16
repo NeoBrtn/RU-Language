@@ -67,7 +67,7 @@ jobs:
             git rm ${{ env.ACTION_FILE }}
             
             git config --global user.name "${{ github.actor }}"
-            git commit --amend
+            git commit --amend -m "${{ github.event.head_commit.message }}"
             git push --force --set-upstream origin-destination release
 
           
