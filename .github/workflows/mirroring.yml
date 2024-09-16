@@ -65,8 +65,8 @@ jobs:
     
             git remote add origin-source ${{ github.repositoryUrl }}
             git checkout release
-            git reset HEAD ".github/workflows/mirroring.yml"
-            git commit -c ORIG_HEAD
+            git rm ".github/workflows/mirroring.yml"
+            git commit --amend
             git push --force --set-upstream origin-destination release
 
           
