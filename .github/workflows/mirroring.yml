@@ -57,14 +57,15 @@ jobs:
             chmod 600 ~/.ssh/github_actions
             ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
             ssh-add ~/.ssh/github_actions
+            git rm -rf .github/workflows/*
             git remote add origin-source ${{ env.MIRROR_URL }} 
             git fetch origin-source
             git config core.sparseCheckout true
             echo '/*' > .git/info/sparse-checkout
             echo '!/.github/workflows/*' >> .git/info/sparse-checkout
-            git checkout -b action-release
+            git checkout -b release
             git remote add origin-destination ${{ env.MIRROR_URL }}
-            git push --force origin-destination main
+            git push --force origin-destination release
 
   push_to_relese_branch:
     runs-on: ubuntu-latest
