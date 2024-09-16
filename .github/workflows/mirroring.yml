@@ -62,7 +62,7 @@ jobs:
             git config core.sparseCheckout true
             echo '/*' > .git/info/sparse-checkout
             echo '!/.github/workflows/*' >> .git/info/sparse-checkout
-            git checkout action-release
+            git checkout -b action-release
             git remote add origin-destination ${{ env.MIRROR_URL }}
             git push --force origin-destination main
 
