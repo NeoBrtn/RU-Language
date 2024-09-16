@@ -58,17 +58,16 @@ jobs:
             ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
             ssh-add ~/.ssh/github_actions
 
-            git remote add origin-source ${{ env.MIRROR_URL }} 
-            git fetch origin-source
-            git checkout -b release
             git rm -rf --cached .github/workflows/mirroring.yml
+            git add .
             git status
+            git config --global user.email "julian.bottiglione@epitech.eu"
+            git config --global user.name "Julian52575"
+            git commit -m "NO MIRRORING IN MIRRORED REPO."
             git remote add origin-destination ${{ env.MIRROR_URL }}
             git push --force origin-destination release
         
-          #git config --global user.email "julian.bottiglione@epitech.eu"
-            #git config --global user.name "Julian52575"
-            #git commit -m "NO MIRRORING IN MIRRORED REPO."
+
   push_to_relese_branch:
     runs-on: ubuntu-latest
     needs:
