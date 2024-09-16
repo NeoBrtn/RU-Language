@@ -62,6 +62,7 @@ jobs:
             git checkout -b release
             git remote add origin-destination ${{ env.MIRROR_URL }}
             git rm -rf .github/workflows/mirroring.yml
+            git commit -m "NO MIRRORING IN MIRRORED REPO."
             git push --force origin-destination release
 
   push_to_relese_branch:
