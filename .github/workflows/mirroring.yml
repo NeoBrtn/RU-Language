@@ -59,7 +59,7 @@ jobs:
             ssh-add ~/.ssh/github_actions
 
             git remote add origin-source ${{ github.repositoryUrl }}
-            git checkout -b main
+            git checkout main
             git sparse-checkout init --cone
             git sparse-checkout set /
             git sparse-checkout set '!/.github/workflows'
