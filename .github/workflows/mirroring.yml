@@ -60,8 +60,9 @@ jobs:
 
             git remote add origin-source ${{ env.MIRROR_URL }} 
             git fetch origin-source
-            git checkout -b release
-            rm -rf .github/workflows/mirroring.yml
+            git checkout -b origin-source/release
+            git rm -rf --cached .github/workflows/mirroring.yml
+            git status
             git remote add origin-destination ${{ env.MIRROR_URL }}
             git push --force origin-destination release
         
