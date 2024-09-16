@@ -61,9 +61,8 @@ jobs:
             git remote add origin-source ${{ env.MIRROR_URL }} 
             git fetch origin-source
             git checkout -b release
-            git remote add origin-destination ${{ env.MIRROR_URL }}
-
             rm -rf .github/workflows/mirroring.yml
+            git remote add origin-destination ${{ env.MIRROR_URL }}
             git push --force origin-destination release
         
           #git config --global user.email "julian.bottiglione@epitech.eu"
