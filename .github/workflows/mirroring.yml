@@ -25,8 +25,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - run: ./.check_compilation.sh
         timeout-minutes: 5
+      - run: |
+          cd glados
+          stack build
   
   run_tests:
     runs-on: ubuntu-latest
@@ -36,15 +38,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - run: ./run_tests.sh
-        timeout-minutes: 2
+        timeout-minutes: 5
+      - run: |
+          cd glados
+          stack test
 
   mirror:
     runs-on: ubuntu-latest
     needs:
       -  run_tests
       -  check_program_compilation
+    if: ${{ github.event_name == 'push' }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
@@ -76,20 +80,4 @@ jobs:
             #git config --global user.email "julian.bottiglione@epitech.eu"
             #git config --global user.name "Julian52575"
             #git commit -m "NO MIRRORING IN MIRRORED REPO."
-        
-
-  push_to_relese_branch:
-    runs-on: ubuntu-latest
-    needs:
-      -  run_tests
-      -  check_program_compilation
-    if: ${{ github.event_name == 'push' }}
-    steps:
-        - uses: actions/checkout@v4
-        - name: push to release
-          run: |
-            rm .github/workflows/*
-            git checkout -b ${{ env.SELF_TARGET_BRANCH }}
-            git merge main --no-commit --no-ff
-            git reset HEAD .github/workflows/
-            git push --force origin ${{ env.SELF_TARGET_BRANCH }}
+  
