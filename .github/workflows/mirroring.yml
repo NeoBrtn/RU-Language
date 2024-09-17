@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: epitechcontent/epitest-docker
+      options: --user="root"
 
     steps:
       - name: Checkout
@@ -34,6 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image:  epitechcontent/epitest-docker
+      options: --user="root"
     steps:
       - uses: actions/checkout@v4
         with:
