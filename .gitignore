@@ -1,6 +1,0 @@
-*.o
-*.hi
-glados
-coding-style-reports.log
-
-.github/workflows/*
