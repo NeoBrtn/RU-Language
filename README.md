@@ -1,8 +1,9 @@
 In collaboration with @rembpt ...
 
 # RU Language    
+RU Language is a simple and secure programming / scripting language powered by Haskell.    
 
-## Installation 
+## Starting guide 
 > [!NOTE]
 > Ru language is only available on linux.
 
