@@ -1,4 +1,4 @@
-In collaboration with @rembpt ...
+# _In collaboration with [@michelguillaume](https://github.com/michelguillaume), [@rembpt](https://github.com/Rembpt) and [@neobrtn](https://github.com/NeoBrtn)_
 
 # RU Language    
 RU Language is a simple and secure programming / scripting language powered by Haskell.    
